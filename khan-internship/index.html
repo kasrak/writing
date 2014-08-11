@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My summer at Khan Academy</title>
+    <!--    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700|Source+Serif+Pro" rel="stylesheet" type="text/css"> -->
+    <link rel="stylesheet" href="style.css">
+    <script src="code.js" async></script>
+</head>
+<body>
+    <div class="content">
+        <div class="header">
+            <h1><a href="/">Kasra Kyanzadeh</a></h1>
+        </div>
+
+        <h1>My summer at Khan Academy</h1>
+
+        <section class="clearfix">
+            <div class="media-container right inset">
+                <a href="https://www.khanacademy.org/profile/kasrak">
+                    <img src="img/badge.png" class="right">
+                </a>
+                <div class="media-caption">
+                    The coveted badge.
+                </div>
+            </div>
+
+            <p>
+            I've spent the past few months at Khan Academy as an engineering
+            intern on the iOS team, helping bring all the interactive exercises
+            to the iPad app. As my internship comes to an end, I've
+            compiled a list of the projects I worked on.
+            </p>
+
+            <p>
+            This post will mainly focus on the end result of my projects.
+            I'll write more on some of the implementation details
+            in the future.
+            </p>
+
+            <p>
+            A little background about me: I'm a CS major at the University
+            of Toronto, going into my final year. Before Khan Academy,
+            I interned at Mixpanel and Optimizely.
+            </p>
+
+            <h4>Contents</h4>
+            <ul>
+                <li><a href="#related-videos">Related videos</a></li>
+                <li><a href="#scratchpad">Scratchpad</a></li>
+                <li><a href="#flow">Flow</a></li>
+                <li><a href="#other">Other small things</a></li>
+            </ul>
+        </section>
+
+        <section class="clearfix">
+            <a name="related-videos"></a>
+            <h2>Related videos</h2>
+
+            <p>
+            Each exercise on Khan Academy has associated videos that cover
+            the relevant skills for that exercise. My first project was to
+            add these related videos to the exercise screen of the app.
+            </p>
+
+            <p>
+            I worked with Marcos to iterate on different interactions.
+            We started with a video thumbnail that could be dragged up
+            to start playing the video, like the YouTube app.
+            </p>
+
+            <div class="media-container">
+                <div class="media-caption right" style="width: 280px; padding-top: 270px">
+                    <p>
+                    The first iteration kept the video on a fixed track,
+                    using the touch y-coordinate to interpolate the
+                    position on the track. This felt awkward if you didn't
+                    drag along the path since your finger's movement
+                    would be disconnected from the movement of the video.
+                    </p>
+                </div>
+                <div class="video-player" style="width: 434px; height: 562px;">
+                    <video src="img/related-videos-0.mp4"
+                           poster="img/related-videos-0.png"
+                           loop>
+                    </video>
+                    <div class="play-button"></div>
+                    <div class="pause-button"></div>
+                </div>
+            </div>
+
+            <p>
+            We realized it would be a waste of screen space to have the
+            thumbnail always on screen, especially since a lot of our
+            thumbnails are black rectangles with a few scribbles.
+            </p>
+
+            <p>
+            Ultimately, we decided that the video should have three states:
+            hidden, maximized, and docked. The docked state would play the
+            video in the corner of the screen, allowing the user to interact
+            with the exercise while watching the video.
+            </p>
+
+            <div class="media-container">
+                <div class="media-caption right" style="width: 280px; padding-top: 270px">
+                    <p>
+                    You can switch videos by scrolling sideways when the video
+                    is maximized.
+                    </p>
+                    <p>
+                    This version allowed the docked video to be placed
+                    anywhere on the bottom of the screen. We ended up
+                    pinning the docked video to the bottom right to make
+                    it more consistent.
+                    </p>
+                </div>
+                <div class="video-player" style="width: 436px; height: 566px">
+                    <video src="img/related-videos-free-docking.mp4"
+                           poster="img/related-videos-free-docking.png"
+                           loop>
+                    </video>
+                    <div class="play-button"></div>
+                    <div class="pause-button"></div>
+                </div>
+            </div>
+
+            <p>
+            Ended up using POP to animate the view. Three phantom UIViews
+            define the position and dimensions for the maximized, minimized,
+            and docked states. They're positioned using Auto Layout.
+            </p>
+
+            <p>
+            </p>
+
+            <div class="video-player">
+                <div class="media-container left half">
+                    <video src="img/related-videos-set-anchor-no.mp4" loop>
+                    </video>
+                    <div class="media-caption">
+                        Anchor point is always in the center.
+                        The touch leaves the view as it shrinks.
+                    </div>
+                </div>
+                <div class="media-container right half">
+                    <video src="img/related-videos-set-anchor-yes.mp4" loop>
+                    </video>
+                    <div class="media-caption">
+                        Anchor point is set to the touch position.
+                        The view resizes around the touch, so the
+                        touch never leaves the view.
+                    </div>
+                </div>
+
+                <div class="play-button"></div>
+                <div class="pause-button"></div>
+            </div>
+        </section>
+
+        <section>
+            <a name="scratchpad"></a>
+            <h2>Scratchpad</h2>
+
+            <div class="video-player">
+                <video src="img/scratchpad-buttons.mp4" loop>
+                </video>
+                <div class="play-button"></div>
+                <div class="pause-button"></div>
+            </div>
+
+            <p>
+            Largest project.
+            Goal: let students do scratch work right on the device, instead of
+            getting a pen and paper.
+            </p>
+
+            <p>
+            Background info: app architecture: exercises rendered in web view,
+            with native chrome. The scratchpad should be native.
+            </p>
+
+            <p>
+            More background info: exercises have interactive components.
+            </p>
+
+            <p>
+                <img src="img/scratchpad-view-sandwich.png" width="300">
+            </p>
+
+            <p>
+            Hit testing in the webview attempts. e.preventDefault(). Issues with
+            that. Final solution: async hit test, forward compatible when we
+            switch to WKWebView.
+            </p>
+
+            <p>
+            Two finger scrolling: human fingers are not very precise. Have to
+            cancel drawing if second finger shows up within a threshold.
+            Shoutout to Matt Drance for helping with this.
+            </p>
+
+            <p>
+            Shoutout to Andy for improving inking.
+            </p>
+        </section>
+
+        <section>
+            <a name="flow"></a>
+            <h2>Flow</h2>
+
+            <p>
+            Healthy hackathon project. How can we make the iteration of
+            interactive designs easier (see related videos).
+            </p>
+
+            <p>
+            Got to play with React. Immutable app architecture.
+            </p>
+        </section>
+
+        <section>
+            <a name="other"></a>
+            <h2>Other small things&hellip;</h2>
+
+            <div class="media-container center">
+                <video src="img/exercise-progression.mp4"
+                       style="width: 444px; height: 82px"
+                       autoplay loop>
+                </video>
+                <div class="media-caption" style="width: 400px">
+                    A bouncy animation I made to show the user's progress
+                    in an exercise.
+                    Thanks to fellow intern
+                    <a href="http://www.elizabethylin.com/">Elizabeth Lin</a>
+                    for helping design this
+                    and many of the other things you saw in this post!
+                </div>
+            </div>
+
+            <h3>Launch to exercise</h3>
+
+            <p>
+            I added a way to go directly to a specific exercise when running
+            the app from Xcode. A simple change, but one that saved a lot of
+            time. Before, we would launch the app and either browse to an
+            exercise (at least 5 taps) or search for an exercise (2 taps +
+            5 keystrokes).
+            </p>
+
+            <p>
+            It uses a custom scheme that sets an environment variable
+            indicating the exercise to load on launch.
+            </p>
+
+            <div class="media-container center scheme-screenshot-container" style="position: relative">
+                <img src="img/question-mark.png"
+                     style="position: absolute; bottom: 120px; right: 30px;"
+                     class="clickable overlay-toggle"
+                     onclick="toggleOverlayWithId('customSchemeOverlay')">
+                <img src="img/custom-scheme.png"
+                     style="width: 893px; height: 600px">
+            </div>
+
+            <div id="customSchemeOverlay" class="overlay" style="margin-top: -90px">
+                <img src="img/overlay-arrow.png" class="overlay-arrow" style="right: 36px">
+                <p>
+                Read the environment value in <code>application:didFinishLaunchingWithOptions:</code>
+                and take action accordingly!
+                </p>
+                <pre>
+#if DEBUG
+NSDictionary *env = [[NSProcessInfo processInfo] environment];
+NSString *initialExerciseName = env[@"initialExerciseName"];
+if (initialExerciseName) {
+    [self loadExerciseWithName:initialExerciseName];
+}
+#endif
+</pre>
+            </div>
+
+            <h3>Feedback form</h3>
+            <p>
+                UITextView is broken. Form sheet view controllers are frustrating.
+
+                <div class="media-container center">
+                    <div class="video-player">
+                        <video src="img/feedback.mp4"
+                               poster="img/feedback.png"
+                               style="width: 584px; height: 456px"
+                               loop>
+                        </video>
+                        <div class="play-button"></div>
+                        <div class="pause-button"></div>
+                    </div>
+                </div>
+            </p>
+
+            <h3>animation.js + scrolling.js</h3>
+            <p>
+            jQuery scrolling is broken on iOS if you try to scroll x and y
+            simultaneously. I wrote a simple `requestAnimationFrame` wrapper
+            that scrolls the webview. It's interruptible.
+            <a href="https://gist.github.com/kasrak/ec6584cab885b7242de1">Code is on GitHub</a>.
+            </p>
+        </section>
+
+        <section>
+            <h2>Thank you!</h2>
+
+            <div class="media-container center hipchat-screenshot-container">
+                <img src="img/knowledge.png"
+                     class="shadow-frame horizontally-center-on-page"
+                     style="width: 819px; 128px">
+                <div class="media-caption">
+                    Dropping knowledge all over the place.
+                </div>
+            </div>
+
+            <p>
+            I've had an great summer and it's thanks to everyone
+            at Khan Academy. An extra special thank you to the iOS team:
+                <ul class="randomize-list">
+                    <li>
+                        <a href="https://twitter.com/omgitsmgp">
+                            Mike Parker
+                        </a> &mdash; my mentor &#x2605;
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/savinola">
+                            Laura Savino
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/andy_matuschak">
+                            Andy Matuschak
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/nsfmc">
+                            Marcos Ojeda
+                        </a>
+                    </li>
+                </ul>
+            </p>
+
+            <p>
+            And thank you for reading this! See ya later.
+            </p>
+            <p>
+            <!-- Psst... I'm <a href="https://twitter.com/kasrak">@kasrak</a> on Twitter. -->
+            </p>
+        </section>
+
+        <p>
+        </p>
+    </div>
+</body>
+</html>
