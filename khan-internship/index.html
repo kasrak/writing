@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>My summer at Khan Academy</title>
-    <!--    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700|Source+Serif+Pro" rel="stylesheet" type="text/css"> -->
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700|Source+Serif+Pro" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="style.css">
     <script src="code.js" async></script>
 </head>
@@ -49,7 +49,7 @@
                 <li><a href="#related-videos">Related videos</a></li>
                 <li><a href="#scratchpad">Scratchpad</a></li>
                 <li><a href="#flow">Flow</a></li>
-                <li><a href="#other">Other small things</a></li>
+                <li><a href="#other">Other things</a></li>
             </ul>
         </section>
 
@@ -80,9 +80,12 @@
                     </p>
                 </div>
                 <div class="video-player" style="width: 434px; height: 562px;">
-                    <video src="img/related-videos-0.mp4"
-                           poster="img/related-videos-0.png"
+                    <video poster="img/related-videos-0.png"
                            loop>
+                           <source src="img/related-videos-0.webm"
+                                   type="video/webm">
+                           <source src="img/related-videos-0.mp4"
+                                   type="video/mp4">
                     </video>
                     <div class="play-button"></div>
                     <div class="pause-button"></div>
@@ -116,9 +119,12 @@
                     </p>
                 </div>
                 <div class="video-player" style="width: 436px; height: 566px">
-                    <video src="img/related-videos-free-docking.mp4"
-                           poster="img/related-videos-free-docking.png"
+                    <video poster="img/related-videos-free-docking.png"
                            loop>
+                           <source src="img/related-videos-free-docking.webm"
+                                   type="video/webm">
+                           <source src="img/related-videos-free-docking.mp4"
+                                   type="video/mp4">
                     </video>
                     <div class="play-button"></div>
                     <div class="pause-button"></div>
@@ -136,7 +142,11 @@
 
             <div class="video-player">
                 <div class="media-container left half">
-                    <video src="img/related-videos-set-anchor-no.mp4" loop>
+                    <video loop>
+                           <source src="img/related-videos-set-anchor-no.webm"
+                                   type="video/webm">
+                           <source src="img/related-videos-set-anchor-no.mp4"
+                                   type="video/mp4">
                     </video>
                     <div class="media-caption">
                         Anchor point is always in the center.
@@ -144,7 +154,11 @@
                     </div>
                 </div>
                 <div class="media-container right half">
-                    <video src="img/related-videos-set-anchor-yes.mp4" loop>
+                    <video loop>
+                           <source src="img/related-videos-set-anchor-yes.webm"
+                                   type="video/webm">
+                           <source src="img/related-videos-set-anchor-yes.mp4"
+                                   type="video/mp4">
                     </video>
                     <div class="media-caption">
                         Anchor point is set to the touch position.
@@ -153,8 +167,8 @@
                     </div>
                 </div>
 
-                <div class="play-button"></div>
-                <div class="pause-button"></div>
+                <div class="play-button" style="background-position-y: 200px"></div>
+                <div class="pause-button" style="background-position-y: 200px"></div>
             </div>
         </section>
 
@@ -163,7 +177,11 @@
             <h2>Scratchpad</h2>
 
             <div class="video-player">
-                <video src="img/scratchpad-buttons.mp4" loop>
+                <video loop>
+                   <source src="img/scratchpad-buttons.webm"
+                           type="video/webm">
+                   <source src="img/scratchpad-buttons.mp4"
+                           type="video/mp4">
                 </video>
                 <div class="play-button"></div>
                 <div class="pause-button"></div>
@@ -221,12 +239,15 @@
 
         <section>
             <a name="other"></a>
-            <h2>Other small things&hellip;</h2>
+            <h2>Other things&hellip;</h2>
 
             <div class="media-container center">
-                <video src="img/exercise-progression.mp4"
-                       style="width: 444px; height: 82px"
+                <video style="width: 444px; height: 82px"
                        autoplay loop>
+                       <source src="img/exercise-progression.webm"
+                               type="video/webm">
+                       <source src="img/exercise-progression.mp4"
+                               type="video/mp4">
                 </video>
                 <div class="media-caption" style="width: 400px">
                     A bouncy animation I made to show the user's progress
@@ -237,6 +258,8 @@
                     and many of the other things you saw in this post!
                 </div>
             </div>
+
+            <h3>UIWebView &rarr; WKWebView</h3>
 
             <h3>Launch to exercise</h3>
 
@@ -285,10 +308,13 @@ if (initialExerciseName) {
 
                 <div class="media-container center">
                     <div class="video-player">
-                        <video src="img/feedback.mp4"
-                               poster="img/feedback.png"
+                        <video poster="img/feedback.png"
                                style="width: 584px; height: 456px"
                                loop>
+                           <source src="img/feedback.webm"
+                                   type="video/webm">
+                           <source src="img/feedback.mp4"
+                                   type="video/mp4">
                         </video>
                         <div class="play-button"></div>
                         <div class="pause-button"></div>
@@ -347,13 +373,11 @@ if (initialExerciseName) {
             <p>
             And thank you for reading this! See ya later.
             </p>
+
             <p>
-            <!-- Psst... I'm <a href="https://twitter.com/kasrak">@kasrak</a> on Twitter. -->
+            &mdash; <a href="https://twitter.com/kasrak">@kasrak</a>
             </p>
         </section>
-
-        <p>
-        </p>
     </div>
 </body>
 </html>
