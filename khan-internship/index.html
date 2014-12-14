@@ -3,142 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <title>My summer at Khan Academy</title>
-    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700|Source+Serif+Pro" rel="stylesheet" type="text/css">
+    <link href='http://fonts.googleapis.com/css?family=PT+Serif:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="style.css">
     <script src="code.js" async></script>
 </head>
 <body>
     <div class="content">
         <div class="header">
-            <h1><a href="/">Kasra Kyanzadeh</a></h1>
+            <h1><a href="http://www.kasrak.com">Kasra Kyanzadeh</a></h1>
         </div>
 
-        <h1>My summer at Khan Academy</h1>
+        <h1 class="title">My internship at Khan Academy</h1>
 
         <section class="clearfix">
-            <div class="media-container right inset">
+            <div class="media-container right inset" style="width: 180px">
                 <a href="https://www.khanacademy.org/profile/kasrak">
-                    <img src="img/badge.png" class="right">
+                    <img src="img/badge.png" class="right" width="100">
                 </a>
                 <div class="media-caption">
-                    The coveted badge.
+                    I wrote all this code and all I got was this badge.
+                    Just kidding, interns are paid.
                 </div>
             </div>
 
             <p>
-            I've spent the past few months at Khan Academy as an engineering
-            intern on the iOS team, helping bring all the interactive exercises
-            to the iPad app. As my internship comes to an end, I've
-            compiled a list of the projects I worked on.
+            I spent the past summer working on the mobile team at Khan Academy.
+            This post is a recap of some of the things I worked on during my
+            internship.
             </p>
 
             <p>
-            This post will mainly focus on the end result of my projects.
-            I'll write more on some of the implementation details
-            in the future.
+            Some background first: Khan Academy is a non-profit with a mission
+            of providing a free world-class education for anyone anywhere. It's
+            best known for the videos, but there are hundreds of interactive
+            math exercises that students can use to practice and master skills
+            ranging from counting to calculus. Here's what an exercise looks
+            like on the website:
             </p>
+
+            <div class="media-container center">
+                <img src="img/khan-website.png">
+            </div>
 
             <p>
-            A little background about me: I'm a CS major at the University
-            of Toronto, going into my final year. Before Khan Academy,
-            I interned at Mixpanel and Optimizely.
+            For the past few months, the mobile team has been working to bring
+            these exercises to the iPad app.
             </p>
-
-            <h4>Contents</h4>
-            <ul>
-                <li><a href="#related-videos">Related videos</a></li>
-                <li><a href="#scratchpad">Scratchpad</a></li>
-                <li><a href="#flow">Flow</a></li>
-                <li><a href="#other">Other things</a></li>
-            </ul>
         </section>
 
         <section class="clearfix">
-            <a name="related-videos"></a>
             <h2>Related videos</h2>
 
             <p>
-            Each exercise on Khan Academy has associated videos that cover
-            the relevant skills for that exercise. My first project was to
-            add these related videos to the exercise screen of the app.
-            </p>
-
-            <p>
-            I worked with Marcos to iterate on different interactions.
-            We started with a video thumbnail that could be dragged up
-            to start playing the video, like the YouTube app.
+            Most exercises have related videos that the student can watch if they're stuck. My first project was to implement a native version of the related videos interface. We liked how the YouTube app let you drag down a video to interact with other content, so that's what I started with.
             </p>
 
             <div class="media-container">
-                <div class="media-caption right" style="width: 280px; padding-top: 270px">
+                <div class="media-caption big  right" style="width: 280px">
                     <p>
-                    The first iteration kept the video on a fixed track,
-                    using the touch y-coordinate to interpolate the
-                    position on the track. This felt awkward if you didn't
-                    drag along the path since your finger's movement
-                    would be disconnected from the movement of the video.
+                    In the first prototype, the video stayed on a fixed track, using the finger's y-coordinate to interpolate the position on the track. This felt awkward on the iPad: if you didn't drag along the path, your finger's movement would become disconnected from the movement of the video.
+                    </p>
+
+                    <p>
+                    We also realized that always having a thumbnail on the screen would be a waste of precious pixels, especially since a lot of the thumbnails would be black rectangles with a few scribbles.
                     </p>
                 </div>
                 <div class="video-player" style="width: 434px; height: 562px;">
-                    <video poster="img/related-videos-0.png"
-                           loop>
-                           <source src="img/related-videos-0.webm"
-                                   type="video/webm">
-                           <source src="img/related-videos-0.mp4"
-                                   type="video/mp4">
-                    </video>
+                    <div class="fake-ipad">
+                        <video poster="img/related-videos-0.png"
+                               loop>
+                               <source src="img/related-videos-0.mp4"
+                                       type="video/mp4">
+                               <source src="img/related-videos-0.webm"
+                                       type="video/webm">
+                        </video>
+                    </div>
                     <div class="play-button"></div>
                     <div class="pause-button"></div>
                 </div>
             </div>
 
             <p>
-            We realized it would be a waste of screen space to have the
-            thumbnail always on screen, especially since a lot of our
-            thumbnails are black rectangles with a few scribbles.
-            </p>
-
-            <p>
-            Ultimately, we decided that the video should have three states:
-            hidden, maximized, and docked. The docked state would play the
-            video in the corner of the screen, allowing the user to interact
-            with the exercise while watching the video.
+            So we decided the video should have three states: hidden, maximized, and docked. The docked video would play the video in the corner, letting the student interact with the exercise while watching the video.
             </p>
 
             <div class="media-container">
-                <div class="media-caption right" style="width: 280px; padding-top: 270px">
+                <div class="media-caption big right" style="width: 280px">
                     <p>
-                    You can switch videos by scrolling sideways when the video
-                    is maximized.
+                    Since exercises can have multiple related videos, this version also let the student swipe left and right to switch between the different videos when the videos are maximized.
                     </p>
                     <p>
-                    This version allowed the docked video to be placed
-                    anywhere on the bottom of the screen. We ended up
-                    pinning the docked video to the bottom right to make
-                    it more consistent.
+                    This prototype let the video to be docked anywhere along the bottom of the screen. As we added more UI elements to the screen, we ended up pinning the docked video to the bottom right to make it more consistent.
                     </p>
                 </div>
                 <div class="video-player" style="width: 436px; height: 566px">
-                    <video poster="img/related-videos-free-docking.png"
-                           loop>
-                           <source src="img/related-videos-free-docking.webm"
-                                   type="video/webm">
-                           <source src="img/related-videos-free-docking.mp4"
-                                   type="video/mp4">
-                    </video>
+                    <div class="fake-ipad">
+                        <video poster="img/related-videos-free-docking.png"
+                               loop>
+                               <source src="img/related-videos-free-docking.webm"
+                                       type="video/webm">
+                               <source src="img/related-videos-free-docking.mp4"
+                                       type="video/mp4">
+                        </video>
+                    </div>
                     <div class="play-button"></div>
                     <div class="pause-button"></div>
                 </div>
             </div>
 
-            <p>
-            Ended up using POP to animate the view. Three phantom UIViews
-            define the position and dimensions for the maximized, minimized,
-            and docked states. They're positioned using Auto Layout.
-            </p>
-
-            <p>
-            </p>
+            <p>I spent a lot of time playing with these prototypes. I noticed that when docking the video, if your finger was not centered in the video view, your finger would become detached from the video as it shrunk. I fixed it by setting the view's anchor point to the touch position, which makes the view shrink around the user's finger—a simple fix that prevents limb-view detachment. See for yourself:</p>
 
             <div class="video-player">
                 <div class="media-container left half">
@@ -170,37 +143,34 @@
                 <div class="play-button" style="background-position-y: 200px"></div>
                 <div class="pause-button" style="background-position-y: 200px"></div>
             </div>
+
+            <p>I tried implementing all of this with <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIDynamicAnimator_Class/index.html#//apple_ref/occ/cl/UIDynamicAnimator">UIDynamics</a>, but ended up switching to <a href="https://github.com/facebook/pop">POP</a> because UIDynamics doesn't provide an easy way to tell when animations have quiesced (I needed to know when to pause and play the video). As a bonus, POP made it pretty easy to have the animations be interruptible.</p>
+
+            <p>Plot twist! Most of this didn't make it into the app. When we tested with real students, it wasn't clear that the fancy interactions were helpful. Most people didn't discover the docking, and some of the people that <em>did</em> figure it out were confused: a lot of them tried pinching the video to dismiss it. It was clear that we had a lot more polishing to do, but we weren't sure docking would actually benefit students. So we ended up shipping a simpler implementation.</p>
+
         </section>
 
         <section>
-            <a name="scratchpad"></a>
             <h2>Scratchpad</h2>
 
-            <div class="video-player">
-                <video loop>
-                   <source src="img/scratchpad-buttons.webm"
-                           type="video/webm">
-                   <source src="img/scratchpad-buttons.mp4"
-                           type="video/mp4">
-                </video>
-                <div class="play-button"></div>
-                <div class="pause-button"></div>
+            <p>My next project was to make a native version of the exercise scratchpad. This ended up being my biggest project.</p>
+
+            <p>The scratchpad canvas is a native view that sits on top of the web view rendering the exercise content. To complicate matters, most exercises have interactive components. Here's a video of the final scratchpad in action:</p>
+
+            <div class="media-container center">
+                <div class="fake-ipad">
+                    <div class="video-player">
+                        <video loop>
+                           <source src="img/scratchpad-full.webm"
+                                   type="video/webm">
+                           <source src="img/scratchpad-full.mp4"
+                                   type="video/mp4">
+                        </video>
+                        <div class="play-button"></div>
+                        <div class="pause-button"></div>
+                    </div>
+                </div>
             </div>
-
-            <p>
-            Largest project.
-            Goal: let students do scratch work right on the device, instead of
-            getting a pen and paper.
-            </p>
-
-            <p>
-            Background info: app architecture: exercises rendered in web view,
-            with native chrome. The scratchpad should be native.
-            </p>
-
-            <p>
-            More background info: exercises have interactive components.
-            </p>
 
             <p>
                 <img src="img/scratchpad-view-sandwich.png" width="300">
@@ -224,8 +194,7 @@
         </section>
 
         <section>
-            <a name="flow"></a>
-            <h2>Flow</h2>
+            <h2>Healthy Hackathon</h2>
 
             <p>
             Healthy hackathon project. How can we make the iteration of
@@ -238,7 +207,6 @@
         </section>
 
         <section>
-            <a name="other"></a>
             <h2>Other things&hellip;</h2>
 
             <div class="media-container center">
@@ -302,33 +270,7 @@ if (initialExerciseName) {
 </pre>
             </div>
 
-            <h3>Feedback form</h3>
-            <p>
-                UITextView is broken. Form sheet view controllers are frustrating.
 
-                <div class="media-container center">
-                    <div class="video-player">
-                        <video poster="img/feedback.png"
-                               style="width: 584px; height: 456px"
-                               loop>
-                           <source src="img/feedback.webm"
-                                   type="video/webm">
-                           <source src="img/feedback.mp4"
-                                   type="video/mp4">
-                        </video>
-                        <div class="play-button"></div>
-                        <div class="pause-button"></div>
-                    </div>
-                </div>
-            </p>
-
-            <h3>animation.js + scrolling.js</h3>
-            <p>
-            jQuery scrolling is broken on iOS if you try to scroll x and y
-            simultaneously. I wrote a simple `requestAnimationFrame` wrapper
-            that scrolls the webview. It's interruptible.
-            <a href="https://gist.github.com/kasrak/ec6584cab885b7242de1">Code is on GitHub</a>.
-            </p>
         </section>
 
         <section>
@@ -344,39 +286,37 @@ if (initialExerciseName) {
             </div>
 
             <p>
-            I've had an great summer and it's thanks to everyone
-            at Khan Academy. An extra special thank you to the iOS team:
-                <ul class="randomize-list">
-                    <li>
-                        <a href="https://twitter.com/omgitsmgp">
-                            Mike Parker
-                        </a> &mdash; my mentor &#x2605;
-                    </li>
-                    <li>
-                        <a href="https://twitter.com/savinola">
-                            Laura Savino
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://twitter.com/andy_matuschak">
-                            Andy Matuschak
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://twitter.com/nsfmc">
-                            Marcos Ojeda
-                        </a>
-                    </li>
-                </ul>
+            I had a blast! Thanks to everyone at Khan Academy, especially the iOS team for teaching me so much:
+            <a href="https://twitter.com/omgitsmgp">Mike Parker</a>,
+            <a href="https://twitter.com/andy_matuschak">Andy Matuschak</a>,
+            <a href="https://twitter.com/savinola">Laura Savino</a>,
+            and
+            <a href="https://twitter.com/nsfmc">Marcos Ojeda</a>.
             </p>
 
             <p>
-            And thank you for reading this! See ya later.
+            And thank you for reading this! &lt;3
             </p>
+        </section>
 
-            <p>
-            &mdash; <a href="https://twitter.com/kasrak">@kasrak</a>
-            </p>
+        <section>
+
+            <p>P.S. If you want other interns' experiences, here are a bunch of posts:</p>
+
+            <ul>
+                <li>
+                <a href="http://jamie-wong.com/2012/08/22/what-i-did-at-khan-academy/">Jamie Wong: What I did at Khan Academy</a> (2012)
+                </li>
+                <li>
+                <a href="http://www.dylanv.org/2012/09/14/the-khan-academy-internship-experience/">Dylan Vassallo: The Khan Academy Internship Experience</a> (2012)
+                </li>
+                <li>
+                <a href="http://benalpert.com/2012/08/24/what-i-did-at-khan-academy-2012.html">Ben Alpert: What I did at Khan Academy</a> (2012)
+                </li>
+                <li>
+                <a href="http://david-hu.com/2011/11/02/how-khan-academy-is-using-machine-learning-to-assess-student-mastery.html">David Hu: How Khan Academy is using machine learning to assess student mastery</a> (2011)
+                </li>
+            </ul>
         </section>
     </div>
 </body>

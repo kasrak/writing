@@ -1,0 +1,18 @@
+- convert anchor point videos to use fake-ipad chrome
+- add dimensions for all videos/images
+- add posters for all videos
+- convert videos to webm
+- fix looping of videos
+- autoplay/pause videos as the user scrolls
+- write the damn thing (first pass)
+    - scratchpad
+        - intro: goal
+        - app architecture: webview content with interactive parts
+        - present the main problem: detecting interactive areas
+        - briefly describe the final solution (async hit testing)
+        - two finger scrolling gesture recognizer
+    - flow
+        - goal/motivation
+        - wysiwyg vs code for specifying prototypes
+        - react takeaaways, immutable data structures
+

@@ -1,6 +1,9 @@
+"use strict";
+
 function shuffleArray(array) {
     // In-place Fisher-Yates
-    for (var i = array.length - 1; i > 0; i--) {
+    var i;
+    for (i = array.length - 1; i > 0; i--) {
         var j = Math.round(Math.random() * i);
         var temp = array[i];
         array[i] = array[j];
@@ -82,8 +85,30 @@ function toggleOverlayWithId(id) {
     }
 }
 
+function debounce(fn, delay) {
+    var timer;
+    var debounced = function() {
+        var args = arguments;
+        window.clearTimeout(timer);
+        timer = window.setTimeout(function() {
+            fn.apply(null, args);
+        }, delay);
+    }
+    return debounced;
+}
+
 window.addEventListener("load", function() {
     applyToElementsWithClassName("randomize-list", randomizeList);
     applyToElementsWithClassName("horizontally-center-on-page", horizontallyCenterOnPage);
     applyToElementsWithClassName("video-player", setUpVideoPlayer);
+});
+
+var scrollChanged = debounce(function() {
+    var windowTop = window.scrollY;
+    var windowBottom = windowTop + window.innerHeight;
+    // Pause all videos that aren't in the viewport
+    // Play the videos that are in the viewport?
+}, 50);
+window.addEventListener("scroll", function() {
+    scrollChanged();
 });

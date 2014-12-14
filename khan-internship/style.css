@@ -1,7 +1,7 @@
 body {
-    font: 14pt/1.6 "Source Serif Pro", Georgia, Times, serif;
+    font: 14pt/1.6 "PT Serif", Georgia, Times, serif;
     text-align: center;
-    background: #F5F5F2;
+    background: #FDFDFD;
     color: #333;
 }
 
@@ -9,9 +9,20 @@ body {
     box-sizing: border-box;
 }
 
-h1, h2, h3 {
-    font-family: "Source Sans Pro", sans-serif;
+h1, h2, h3, h4 {
+    font-family: Helvetica, Arial, sans-serif;
 }
+
+h1.title {
+    font-family: "PT Serif", serif;
+    letter-spacing: -1px;
+    font-size: 32pt;
+}
+
+p:first-child {
+    margin-top: 0;
+}
+
 
 a {
     color: #234789;
@@ -36,7 +47,6 @@ a:active {
 }
 
 .content section {
-    border-bottom: 1px solid #D5D5D2;
     padding-bottom: 15px;
 }
 
@@ -76,6 +86,7 @@ pre {
 
 .media-container.center {
     text-align: center;
+    width: 100%;
 }
 
 .media-container.left {
@@ -92,6 +103,11 @@ pre {
     width: 50%;
 }
 
+.media-container img {
+    max-width: 100%;
+}
+
+
 .media-container.right.inset {
     margin: 0 0 10px 10px;
 }
@@ -101,8 +117,12 @@ pre {
     color: #666;
     padding: 2px 12px;
     text-align: left;
-    font-family: "Source Sans Pro", sans-serif;
     margin: 0 auto;
+}
+
+.media-caption.big {
+    font-size: inherit;
+    color: inherit;
 }
 
 .media-caption.right {
@@ -212,4 +232,13 @@ img.clickable:active {
 
 .video-player .play-button:active{
     opacity: 0.6;
+}
+
+.fake-ipad {
+    background: #222;
+    padding: 18px 18px 15px 18px;
+    display: inline-block;
+    border-radius: 12px;
+    border: 2px solid #ccc;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.15);
 }
