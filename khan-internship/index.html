@@ -10,6 +10,9 @@
 <body>
     <div class="content">
         <div class="header">
+            <a href="https://twitter.com/kasrak" class="twitter-button" title="I'm on Twitter!">
+                <img src="img/twitter.png" width="25">
+            </a>
             <h1><a href="http://www.kasrak.com">Kasra Kyanzadeh</a></h1>
         </div>
 
@@ -115,24 +118,30 @@
 
             <div class="video-player">
                 <div class="media-container left half">
-                    <video loop>
-                           <source src="img/related-videos-set-anchor-no.webm"
-                                   type="video/webm">
-                           <source src="img/related-videos-set-anchor-no.mp4"
-                                   type="video/mp4">
-                    </video>
+                    <div class="fake-ipad">
+                        <video poster="img/related-videos-set-anchor-no.png"
+                            loop>
+                               <source src="img/related-videos-set-anchor-no.webm"
+                                       type="video/webm">
+                               <source src="img/related-videos-set-anchor-no.mp4"
+                                       type="video/mp4">
+                        </video>
+                    </div>
                     <div class="media-caption">
                         Anchor point is always in the center.
                         The touch leaves the view as it shrinks.
                     </div>
                 </div>
                 <div class="media-container right half">
-                    <video loop>
-                           <source src="img/related-videos-set-anchor-yes.webm"
-                                   type="video/webm">
-                           <source src="img/related-videos-set-anchor-yes.mp4"
-                                   type="video/mp4">
-                    </video>
+                    <div class="fake-ipad">
+                        <video poster="img/related-videos-set-anchor-yes.png"
+                            loop>
+                               <source src="img/related-videos-set-anchor-yes.webm"
+                                       type="video/webm">
+                               <source src="img/related-videos-set-anchor-yes.mp4"
+                                       type="video/mp4">
+                        </video>
+                    </div>
                     <div class="media-caption">
                         Anchor point is set to the touch position.
                         The view resizes around the touch, so the
@@ -218,7 +227,7 @@
                                type="video/mp4">
                 </video>
                 <div class="media-caption" style="width: 400px">
-                    A bouncy animation I made to show the user's progress
+                    A bouncy animation I made to show the student's progress
                     in an exercise.
                     Thanks to fellow intern
                     <a href="http://www.elizabethylin.com/">Elizabeth Lin</a>
@@ -244,17 +253,16 @@
             indicating the exercise to load on launch.
             </p>
 
-            <div class="media-container center scheme-screenshot-container" style="position: relative">
+            <div class="media-container center" style="position: relative">
                 <img src="img/question-mark.png"
-                     style="position: absolute; bottom: 120px; right: 30px;"
+                     style="position: absolute; bottom: 70px; right: 50px;"
                      class="clickable overlay-toggle"
                      onclick="toggleOverlayWithId('customSchemeOverlay')">
-                <img src="img/custom-scheme.png"
-                     style="width: 893px; height: 600px">
+                <img src="img/custom-scheme.png">
             </div>
 
-            <div id="customSchemeOverlay" class="overlay" style="margin-top: -90px">
-                <img src="img/overlay-arrow.png" class="overlay-arrow" style="right: 36px">
+            <div id="customSchemeOverlay" class="overlay" style="margin-top: -55px">
+                <img src="img/overlay-arrow.png" class="overlay-arrow" style="right: 56px">
                 <p>
                 Read the environment value in <code>application:didFinishLaunchingWithOptions:</code>
                 and take action accordingly!
@@ -276,10 +284,9 @@ if (initialExerciseName) {
         <section>
             <h2>Thank you!</h2>
 
-            <div class="media-container center hipchat-screenshot-container">
+            <div class="media-container center">
                 <img src="img/knowledge.png"
-                     class="shadow-frame horizontally-center-on-page"
-                     style="width: 819px; 128px">
+                     class="shadow-frame">
                 <div class="media-caption">
                     Dropping knowledge all over the place.
                 </div>
