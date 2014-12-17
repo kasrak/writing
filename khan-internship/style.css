@@ -19,10 +19,11 @@ h1.title {
     font-size: 32pt;
 }
 
-p:first-child {
-    margin-top: 0;
+.pubinfo {
+    color: #888;
+    font-size: 12pt;
+    margin-bottom: 50px;
 }
-
 
 a {
     color: #234789;

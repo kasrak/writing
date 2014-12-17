@@ -21,7 +21,7 @@
         <section class="clearfix">
             <div class="media-container right inset" style="width: 180px">
                 <a href="https://www.khanacademy.org/profile/kasrak">
-                    <img src="img/badge.png" class="right" width="100">
+                    <img src="img/badge.png" class="right" width="100" height="117">
                 </a>
                 <div class="media-caption">
                     I wrote all this code and all I got was this badge.
@@ -38,13 +38,13 @@
             <p>
             Khan Academy is
             best known for educational videos, but there are also hundreds of interactive
-            math exercises that students can use to practice and master skills
+            math exercises students can use to practice skills
             ranging from counting to calculus. Here's what an exercise looks
             like on the website:
             </p>
 
             <div class="media-container center">
-                <img src="img/khan-website.png">
+                <img src="img/khan-website.png" width="720" height="437">
             </div>
 
             <p>
@@ -70,9 +70,10 @@
                     We also realized that always having a thumbnail on the screen would be a waste of precious pixels, especially since a lot of the thumbnails would be black rectangles with a few scribbles.
                     </p>
                 </div>
-                <div class="video-player" style="width: 434px; height: 562px;">
+                <div class="video-player">
                     <div class="fake-ipad">
                         <video poster="img/related-videos-0.png"
+                               width="384" height="512"
                                loop>
                                <source src="img/related-videos-0.mp4"
                                        type="video/mp4">
@@ -98,9 +99,10 @@
                     This prototype let the video to be docked anywhere along the bottom of the screen. As we added more UI elements to the screen, we ended up pinning the docked video to the bottom right to make it more consistent.
                     </p>
                 </div>
-                <div class="video-player" style="width: 436px; height: 566px">
+                <div class="video-player">
                     <div class="fake-ipad">
                         <video poster="img/related-videos-free-docking.png"
+                               width="384" height="512"
                                loop>
                                <source src="img/related-videos-free-docking.webm"
                                        type="video/webm">
@@ -119,7 +121,8 @@
                 <div class="media-container left half">
                     <div class="fake-ipad">
                         <video poster="img/related-videos-set-anchor-no.png"
-                            loop>
+                               width="306" height="408"
+                               loop>
                                <source src="img/related-videos-set-anchor-no.webm"
                                        type="video/webm">
                                <source src="img/related-videos-set-anchor-no.mp4"
@@ -134,7 +137,8 @@
                 <div class="media-container right half">
                     <div class="fake-ipad">
                         <video poster="img/related-videos-set-anchor-yes.png"
-                            loop>
+                               width="306" height="408"
+                               loop>
                                <source src="img/related-videos-set-anchor-yes.webm"
                                        type="video/webm">
                                <source src="img/related-videos-set-anchor-yes.mp4"
@@ -168,7 +172,9 @@
             <div class="media-container center">
                 <div class="fake-ipad">
                     <div class="video-player">
-                        <video loop>
+                        <video poster="img/scratchpad-full.png"
+                               width="512" height="254"
+                               loop>
                            <source src="img/scratchpad-full.webm"
                                    type="video/webm">
                            <source src="img/scratchpad-full.mp4"
@@ -179,10 +185,6 @@
                     </div>
                 </div>
             </div>
-
-            <p>
-                <img src="img/scratchpad-view-sandwich.png" width="300">
-            </p>
 
             <p>
             Hit testing in the webview attempts. e.preventDefault(). Issues with
@@ -217,9 +219,12 @@
         <section>
             <h2>Other things&hellip;</h2>
 
+            <p>I got to work on a bunch of other things over the four months.
+            Here are some of them.</p>
+
             <div class="media-container center">
-                <video style="width: 444px; height: 82px"
-                       autoplay loop>
+                <video autoplay loop
+                       width="444" height="82">
                        <source src="img/exercise-progression.webm"
                                type="video/webm">
                        <source src="img/exercise-progression.mp4"
@@ -227,7 +232,8 @@
                 </video>
                 <div class="media-caption" style="width: 400px">
                     A bouncy animation I made to show the student's progress
-                    in an exercise.
+                    in an exercise. <strong>The shipped version has confetti, so go
+                    download the app to experience the full glory.</strong>
                     Thanks to fellow intern
                     <a href="http://www.elizabethylin.com/">Elizabeth Lin</a>
                     for helping design this
@@ -257,7 +263,7 @@
                      style="position: absolute; bottom: 70px; right: 50px;"
                      class="clickable overlay-toggle"
                      onclick="toggleOverlayWithId('customSchemeOverlay')">
-                <img src="img/custom-scheme.png">
+                <img src="img/custom-scheme.png" width="720" height="443">
             </div>
 
             <div id="customSchemeOverlay" class="overlay" style="margin-top: -55px">
@@ -284,10 +290,10 @@ if (initialExerciseName) {
             <h2>Thank you!</h2>
 
             <div class="media-container center">
-                <img src="img/knowledge.png"
+                <img src="img/knowledge.png" width="718" height="112"
                      class="shadow-frame">
                 <div class="media-caption">
-                    Dropping knowledge all over the place.
+                    Learning in progress.
                 </div>
             </div>
 
@@ -301,7 +307,7 @@ if (initialExerciseName) {
             </p>
 
             <p>
-            And thank you for reading this! &lt;3
+            And thank you for reading this! &#10084;
             </p>
 
             <p>
@@ -329,5 +335,7 @@ if (initialExerciseName) {
             </ul>
         </section>
     </div>
+
+    <p class="pubinfo">Published January 6, 2014.</p>
 </body>
 </html>
