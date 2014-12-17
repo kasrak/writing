@@ -93,10 +93,10 @@
             <div class="media-container">
                 <div class="media-caption big right" style="width: 280px">
                     <p>
-                    Since exercises can have multiple related videos, this version also let the student swipe left and right to switch between the different videos when the videos are maximized.
+                    Since exercises can have multiple related videos, this version let the student swipe left and right to switch between the different videos in the maximized state.
                     </p>
                     <p>
-                    This prototype let the video to be docked anywhere along the bottom of the screen. As we added more UI elements to the screen, we ended up pinning the docked video to the bottom right to make it more consistent.
+                    This prototype also allowed the video to be docked anywhere along the bottom of the screen. As we added more UI elements to the screen, we ended up pinning the docked video to the bottom right to make it more consistent.
                     </p>
                 </div>
                 <div class="video-player">
@@ -115,7 +115,7 @@
                 </div>
             </div>
 
-            <p>I spent a lot of time playing with these prototypes. I noticed that when docking the video, if your finger was not centered in the video view, your finger would become detached from the video as it shrunk. I fixed it by setting the view's anchor point to the touch position, which makes the view shrink around the user's finger—a simple fix that prevents limb-view detachment. See for yourself:</p>
+            <p>I spent a lot of time playing with these prototypes. I noticed that when docking the video, if your finger was not centered in the video view, the finger would become detached from the video as it shrunk, ruining the illusion of direct manipulation. I fixed it by setting the view's anchor point to the touch position, which makes the view shrink around the user's finger&mdash;a simple fix that prevents limb-view detachment. See for yourself:</p>
 
             <div class="video-player">
                 <div class="media-container left half">
@@ -156,7 +156,7 @@
                 <div class="pause-button" style="background-position-y: 200px"></div>
             </div>
 
-            <p>I tried implementing all of this with <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIDynamicAnimator_Class/index.html#//apple_ref/occ/cl/UIDynamicAnimator">UIDynamics</a>, but ended up switching to <a href="https://github.com/facebook/pop">POP</a> because UIDynamics doesn't provide an easy way to tell when animations have quiesced and I needed to know when to pause and play the video. As a bonus, POP made it pretty easy to have the animations be <a href="http://youtu.be/OiY1cheLpmI?t=43m35s">interruptible</a>.</p>
+            <p>I tried implementing all of these animations with <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIDynamicAnimator_Class/index.html#//apple_ref/occ/cl/UIDynamicAnimator">UIDynamics</a>, but ended up switching to <a href="https://github.com/facebook/pop">POP</a> because UIDynamics doesn't provide an easy way to tell when animations have quiesced and I needed to know when to pause and play the video. As a bonus, POP made it pretty easy to have the animations be <a href="http://youtu.be/OiY1cheLpmI?t=43m35s">interruptible</a>.</p>
 
             <p>Plot twist! Most of this didn't make it into the app. When we tested with real students, it wasn't clear that the fancy interactions were helpful. So we ended up shipping a simpler implementation for now.</p>
 
@@ -166,6 +166,8 @@
             <h2>Scratchpad</h2>
 
             <p>My next project was to make a native version of the exercise scratchpad. This ended up being my biggest project.</p>
+
+            <p>The scratchpad is a drawing canvas, but sits in front of a web view. The web view has interactive content.</p>
 
             <p>The scratchpad canvas is a native view that sits on top of the web view rendering the exercise content. To complicate matters, most exercises have interactive components. Here's a video of the final scratchpad in action:</p>
 

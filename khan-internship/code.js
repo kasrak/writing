@@ -96,6 +96,13 @@ window.toggleOverlayWithId = function(id) {
     }
 };
 
+document.addEventListener("keyup", function(e) {
+    if (e.keyCode == 27) { // Escape
+        overlayBackground.click();
+    }
+});
+
+
 function throttle(fn, delay) {
     var timer = null;
     var debounced = function() {
@@ -124,7 +131,7 @@ var lastScrollY = 0;
 var scrollingDown = 1, scrollingUp = -1;
 var scrollDirection = scrollingDown;
 var scrollChanged = throttle(function() {
-    if (Math.abs(lastScrollY - window.scrollY) < 20) {
+    if (Math.abs(lastScrollY - window.scrollY) < 40) {
         // Ignore small changes.
         return;
     }
