@@ -10,9 +10,6 @@
 <body>
     <div class="content">
         <div class="header">
-            <a href="https://twitter.com/kasrak" class="twitter-button" title="I'm on Twitter!">
-                <img src="img/twitter.png" width="25">
-            </a>
             <h1><a href="http://www.kasrak.com">Kasra Kyanzadeh</a></h1>
         </div>
 
@@ -57,7 +54,7 @@
             <h2>Related videos</h2>
 
             <p>
-            Most exercises have related videos that the student can watch if they're stuck. My first project was to implement a native version of the related videos interface. We liked how the YouTube app lets you drag down a video to interact with other content, so that's what I started with.
+            Most exercises have related videos that students can watch if they're stuck. My first project was to implement a native version of the related videos interface. We liked how the YouTube app lets you drag down a video to interact with other content, so that's what I started with.
             </p>
 
             <div class="media-container">
@@ -115,7 +112,7 @@
                 </div>
             </div>
 
-            <p>I spent a lot of time playing with these prototypes. I noticed that when docking the video, if your finger was not centered in the video view, the finger would become detached from the video as it shrunk, ruining the illusion of direct manipulation. I fixed it by setting the view's anchor point to the touch position, which makes the view shrink around the user's finger&mdash;a simple fix that prevents limb-view detachment. See for yourself:</p>
+            <p>I spent a lot of time playing with these prototypes. I noticed that when docking the video, if your finger was not centered in the video view, the finger would become detached from the video as it shrunk, ruining the illusion of direct manipulation. I fixed this by setting the view's anchor point to the touch position, which makes the view shrink around the user's finger&mdash;a simple change that prevents limb-view detachment. See for yourself:</p>
 
             <div class="video-player">
                 <div class="media-container left half">
@@ -156,20 +153,24 @@
                 <div class="pause-button" style="background-position-y: 200px"></div>
             </div>
 
-            <p>I tried implementing all of these animations with <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIDynamicAnimator_Class/index.html#//apple_ref/occ/cl/UIDynamicAnimator">UIDynamics</a>, but ended up switching to <a href="https://github.com/facebook/pop">POP</a> because UIDynamics doesn't provide an easy way to tell when animations have quiesced and I needed to know when to pause and play the video. As a bonus, POP made it pretty easy to have the animations be <a href="http://youtu.be/OiY1cheLpmI?t=43m35s">interruptible</a>.</p>
+            <p>I tried implementing all of these animations with <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIDynamicAnimator_Class/index.html#//apple_ref/occ/cl/UIDynamicAnimator">UIDynamics</a>, but ended up switching to <a href="https://github.com/facebook/pop">POP</a> because UIDynamics doesn't provide an easy way to tell when animations have quiesced. As a bonus, POP made it pretty easy to have the animations be <a href="http://youtu.be/OiY1cheLpmI?t=43m35s">interruptible</a>.</p>
 
-            <p>Plot twist! Most of this didn't make it into the app. When we tested with real students, it wasn't clear that the fancy interactions were helpful. So we ended up shipping a simpler implementation for now.</p>
+            <p>Plot twist! Most of this didn't make it into the app. When we tested with real students, it wasn't clear that the fancy interactions were helpful. So we ended up shipping a simpler implementation without docking.</p>
 
         </section>
 
         <section>
             <h2>Scratchpad</h2>
 
-            <p>My next project was to make a native version of the exercise scratchpad. This ended up being my biggest project.</p>
+            <p>My next project was to make a native version of the exercise scratchpad. A lot of students use the scratchpad to do rough work, even though writing with
+            a mouse can be painful, so we knew it was a valuable feature and knew we could make a far better experience on a touch device. This ended up being my biggest project.</p>
 
-            <p>The scratchpad is a drawing canvas, but sits in front of a web view. The web view has interactive content.</p>
+            <img src="img/scratchpad-view-sandwich.png" width="182" height="160" class="scratchpad-view-sandwich">
 
-            <p>The scratchpad canvas is a native view that sits on top of the web view rendering the exercise content. To complicate matters, most exercises have interactive components. Here's a video of the final scratchpad in action:</p>
+            <p>It was decided early on that exercise content in the app would be rendered in a web view&mdash;it was the only feasible way to bring over hundreds of exercises with the resources we had. This meant the scratchpad canvas
+            (a native view) would cover the webview rendering the exercise.</p>
+
+            <p class="clear">This arrangement was complicated by the fact that all exercises have "interactive regions". For example, in the exercise below, the blocks have to be dragged to be placed in the correct order.</p>
 
             <div class="media-container center">
                 <div class="fake-ipad">
