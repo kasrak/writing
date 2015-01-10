@@ -1,15 +1,4 @@
-- convert videos to webm
-- write
-    - scratchpad
-        - intro: goal
-        - app architecture: webview content with interactive parts
-        - present the main problem: detecting interactive areas
-        - briefly describe the final solution (async hit testing)
-        - two finger scrolling gesture recognizer
-    - flow
-        - goal/motivation
-        - wysiwyg vs code for specifying prototypes
-        - react takeaaways, immutable data structures
-
-- test looping of videos
-- minify/optimize everything!
+- write scratchpad section
+- ensure gzip
+- fix mobile safari issues
+- proofread

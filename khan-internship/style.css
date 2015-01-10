@@ -207,11 +207,11 @@ img.clickable:active {
 }
 
 .video-player .play-button {
-    background: url('img/play-icon.png') no-repeat 50% 50%;
+    background: url('http://dcv5tqec9187e.cloudfront.net/khan-internship/play-icon.png') no-repeat 50% 50%;
 }
 
 .video-player .pause-button {
-    background: url('img/pause-icon.png') no-repeat 50% 50%;
+    background: url('http://dcv5tqec9187e.cloudfront.net/khan-internship/pause-icon.png') no-repeat 50% 50%;
     opacity: 0.2;
 }
 

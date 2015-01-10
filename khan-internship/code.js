@@ -2,9 +2,9 @@
 "use strict";
 /*jslint browser: true */
 
-function forEach(seq, fn) {
-    Array.prototype.forEach.call(seq, fn);
-}
+function first(array) { return array[0]; }
+function last(array) { return array[array.length - 1]; }
+function forEach(seq, fn) { Array.prototype.forEach.call(seq, fn); }
 
 function applyToElementsWithClassName(className, fn) {
     forEach(document.getElementsByClassName(className), fn);
@@ -75,11 +75,7 @@ window.toggleOverlayWithId = function(id) {
         hideOverlay();
     };
 
-    if (classList.contains(visibleClass)) {
-        hideOverlay();
-    } else {
-        showOverlay();
-    }
+    classList.contains(visibleClass) ?  hideOverlay() : showOverlay();
 
     function showOverlay() {
         classList.add(visibleClass);
@@ -102,7 +98,6 @@ document.addEventListener("keyup", function(e) {
     }
 });
 
-
 function throttle(fn, delay) {
     var timer = null;
     var debounced = function() {
@@ -117,15 +112,6 @@ function throttle(fn, delay) {
     };
     return debounced;
 }
-
-function first(array) {
-    return array[0];
-}
-
-function last(array) {
-    return array[array.length - 1];
-}
-
 
 var lastScrollY = 0;
 var scrollingDown = 1, scrollingUp = -1;
