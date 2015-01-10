@@ -20,21 +20,17 @@
                 <a href="https://www.khanacademy.org/profile/kasrak">
                     <img src="img/badge.png" class="right" width="100" height="117">
                 </a>
-                <div class="media-caption">
-                    I wrote all this code and all I got was this badge.
-                    Just kidding, interns are paid.
-                </div>
             </div>
 
             <p>
-            I spent the past summer working on the iOS team at Khan Academy.
+            I spent the past summer working on the iOS team at <a href="https://www.khanacademy.org/">Khan Academy</a>.
             This post is a recap of some of the things I worked on during my
             internship.
             </p>
 
             <p>
             Khan Academy is
-            best known for educational videos, but there are also hundreds of interactive
+            best known for their videos, but there are also hundreds of interactive
             math exercises students can use to practice skills
             ranging from counting to calculus. Here's what an exercise looks
             like on the website:
@@ -84,7 +80,7 @@
             </div>
 
             <p>
-            So we decided the video should have three states: hidden, maximized, and docked. The docked video would play the video in the corner, letting the student interact with the exercise while watching the video.
+            So we played with having three states: hidden, maximized, and docked. The docked video would play the video in the corner, letting the student interact with the exercise while watching the video.
             </p>
 
             <div class="media-container">
@@ -112,7 +108,7 @@
                 </div>
             </div>
 
-            <p>I spent a lot of time playing with these prototypes. I noticed that when docking the video, if your finger was not centered in the video view, the finger would become detached from the video as it shrunk, ruining the illusion of direct manipulation. I fixed this by setting the view's anchor point to the touch position, which makes the view shrink around the user's finger&mdash;a simple change that prevents limb-view detachment. See for yourself:</p>
+            <p>I spent a lot of time playing with these prototypes. I noticed that if your finger wasn't centered in the video view when docking the video, the finger would become detached from the video as it shrunk, ruining the illusion of direct manipulation. I fixed this by setting the view's anchor point to the touch position, which makes the view shrink around the user's finger&mdash;a simple change that prevents limb-view detachment. See for yourself:</p>
 
             <div class="video-player">
                 <div class="media-container left half">
@@ -127,7 +123,7 @@
                         </video>
                     </div>
                     <div class="media-caption">
-                        Before: Anchor point is always in the center.
+                        Before: Anchor point is always in the center of the video view.
                         The touch leaves the view as it shrinks.
                     </div>
                 </div>
@@ -153,24 +149,24 @@
                 <div class="pause-button" style="background-position-y: 200px"></div>
             </div>
 
-            <p>I tried implementing all of these animations with <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIDynamicAnimator_Class/index.html#//apple_ref/occ/cl/UIDynamicAnimator">UIDynamics</a>, but ended up switching to <a href="https://github.com/facebook/pop">POP</a> because UIDynamics doesn't provide an easy way to tell when animations have quiesced. As a bonus, POP made it pretty easy to have the animations be <a href="http://youtu.be/OiY1cheLpmI?t=43m35s">interruptible</a>.</p>
+            <p>I tried implementing all of the animations between the different states with <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIDynamicAnimator_Class/index.html#//apple_ref/occ/cl/UIDynamicAnimator">UIDynamics</a>, but ended up switching to <a href="https://github.com/facebook/pop">POP</a> because UIDynamics doesn't provide an easy way to tell when animations have quiesced. As a bonus, POP made it pretty easy to have the animations be <a href="http://youtu.be/OiY1cheLpmI?t=43m35s">interruptible</a>.</p>
 
-            <p>Plot twist! Most of this didn't make it into the app. When we tested with real students, it wasn't clear that the fancy interactions were helpful. So we ended up shipping a simpler implementation without docking.</p>
+            <p>Plot twist! Most of this didn't make it into the app. When we tested with students, it wasn't clear that the fancy interactions were helpful. So we ended up shipping a simpler implementation without docking.</p>
 
         </section>
 
         <section>
             <h2>Scratchpad</h2>
 
-            <p>My next project was to make a native version of the exercise scratchpad. A lot of students use the scratchpad to do rough work, even though writing with
-            a mouse can be painful, so we knew it was a valuable feature and knew we could make a far better experience on a touch device. This ended up being my biggest project.</p>
+            <p>My next project was to make a native version of the exercise scratchpad. A lot of students use the scratchpad on the website to do rough work, even though writing with
+            a mouse can be painful, so we knew it was a valuable feature that could provide a far better experience on a touch device. This ended up being my biggest project.</p>
 
             <img src="img/scratchpad-view-sandwich.png" width="182" height="160" class="scratchpad-view-sandwich">
 
-            <p>It was decided early on that exercise content in the app would be rendered in a web view&mdash;it was the only feasible way to bring over hundreds of exercises with the resources we had. This meant the scratchpad canvas
+            <p>It was decided early on during the development of the app that exercise content would be rendered in a web view&mdash;it was the only feasible way to bring hundreds of exercises with the resources we had. This meant the scratchpad canvas
             (a native view) would cover the webview rendering the exercise.</p>
 
-            <p class="clear">This arrangement was complicated by the fact that all exercises have "interactive regions". For example, in the exercise below, the blocks have to be dragged to be placed in the correct order.</p>
+            <p class="clear">This arrangement was complicated by the fact that all exercises have interactive regions. For example, in the exercise below, the blocks have to be dragged to put them in the correct order.</p>
 
             <div class="media-container center">
                 <div class="fake-ipad">
@@ -190,32 +186,35 @@
             </div>
 
             <p>
-            Hit testing in the webview attempts. e.preventDefault(). Issues with
-            that. Final solution: async hit test, forward compatible when we
-            switch to WKWebView.
+            So the main problem boils down to hit testing: when the scratchpad
+            is active and a touch starts, should we start drawing or let the webview
+            handle the touch?
             </p>
 
             <p>
-            Two finger scrolling: human fingers are not very precise. Have to
-            cancel drawing if second finger shows up within a threshold.
-            Shoutout to Matt Drance for helping with this.
+            After an initially-promising but ultimately sketchy solution that
+            relied on internal implementation details of how native touches
+            are handled when Javascript calls <code>e.preventDefault()</code>
+            on the touch event, it became clear that the right way to do it would
+            be to ask the webpage directly.
             </p>
 
             <p>
-            Shoutout to Andy for improving inking.
-            </p>
-        </section>
-
-        <section>
-            <h2>Healthy Hackathon</h2>
-
-            <p>
-            Healthy hackathon project. How can we make the iteration of
-            interactive designs easier (see related videos).
+            Mark all interactive DOM elements with special class. Use elementFromPoint() to
+            see if element or parent have the class.
             </p>
 
             <p>
-            Got to play with React. Immutable app architecture.
+            When a touch starts, scratchpad asks if there is an interactive element at
+            the touch coordinates. But it can't block--this would drop the first few
+            strokes (pretty high overhead of making a call into JS land). Particularly
+            annoying for short strokes, like decimal points. So we queue up the touch
+            points, but only start drawing when we receive response from webview.
+            </p>
+
+            <p>
+            Shoutout to Andy for improving inking, Matt for helping with
+            two-finger scrolling.
             </p>
         </section>
 
@@ -244,21 +243,60 @@
                 </div>
             </div>
 
+            <h3>Interaction Prototyping</h3>
+
+            <p>
+            I took a break from iOS land during the 4-day
+            <a href="http://healthyhackathon.khanacademy.org/">Healthy Hackathon</a> and
+            teamed up with <a href="https://twitter.com/andy_matuschak">Andy</a>
+            and <a href="https://twitter.com/soprano">Ben</a> to work on a proof-of-concept
+            for a UI prototyping tool. Having written way too much code to explore different
+            interactions for the related videos, we wanted to explore how we could make iterating
+            on interactive designs faster.
+            </p>
+
+            <iframe src="http://player.vimeo.com/video/115821145" width="720" height="580"
+                frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen>
+            </iframe>
+
+            <p>
+            We built a visual editor that emits <a href="http://framerjs.com/">framer.js</a> code.
+            Framer.js is a Javascript library that helps build interactive prototypes, but it can
+            take a lot of fiddly code to get things where you want them. We tried to let the user
+            set the scene visually, and only write code to describe the interactions.
+            </p>
+
             <h3>UIWebView &rarr; WKWebView</h3>
+
+            <p>
+            After
+            <a href="https://developer.apple.com/library/prerelease/ios/documentation/WebKit/Reference/WKWebView_Ref/index.html"><code>WKWebView</code></a>
+            was announced, I spent some time trying
+            to make the app use it on iOS 8+ devices, while continuing
+            to use <code>UIWebView</code> on iOS 7 devices.
+            </p>
+
+            <p>
+            This involved converting all the communication between the app and webview to
+            be asynchronous, since <code>WKWebView</code>'s API for calling
+            Javascript functions from Objective-C is non-blocking.
+            </p>
+
+            <p>
+            But when I actually ran the app on an iOS 8 device, nothing loaded. Womp-womp.
+            That's because <code>WKWebView</code> can't load
+            files directly from the local filesystem (this is probably <a href="https://bugs.webkit.org/show_bug.cgi?id=137153">going to be fixed</a>).
+            Just for fun, I hacked up a version of the app with a local webserver to
+            serve the local files. In brief unscientific testing (i.e. I just
+            played around with some exercises), I didn't notice huge performance improvements.
+            </p>
 
             <h3>Launch to exercise</h3>
 
             <p>
-            I added a way to go directly to a specific exercise when running
+            I added a way to go directly to a specific exercise when launching
             the app from Xcode. A simple change, but one that saved a lot of
-            time. Before, we would launch the app and either browse to an
-            exercise (at least 5 taps) or search for an exercise (2 taps +
-            5 keystrokes).
-            </p>
-
-            <p>
-            It uses a custom scheme that sets an environment variable
-            indicating the exercise to load on launch.
+            time, especially when debugging issues for a specific exercise.
             </p>
 
             <div class="media-container center" style="position: relative">
@@ -272,8 +310,11 @@
             <div id="customSchemeOverlay" class="overlay" style="margin-top: -55px">
                 <img src="img/overlay-arrow.png" class="overlay-arrow" style="right: 56px">
                 <p>
-                Read the environment value in <code>application:didFinishLaunchingWithOptions:</code>
-                and take action accordingly!
+                It uses a custom scheme that sets an environment variable with
+                the name of the exercise to load on launch.
+                </p>
+                <p>
+                The value is read in <code>application:didFinishLaunchingWithOptions:</code>
                 </p>
                 <pre>
 #if DEBUG
@@ -301,7 +342,7 @@ if (initialExerciseName) {
             </div>
 
             <p>
-            I had a blast! Thanks to everyone at Khan Academy, especially the iOS team for teaching me a ton:
+            A+ internship, would do again. Seriously, I had a blast! Thanks to everyone at Khan Academy, especially the iOS team for teaching me a ton:
             <a href="https://twitter.com/omgitsmgp">Mike Parker</a>,
             <a href="https://twitter.com/andy_matuschak">Andy Matuschak</a>,
             <a href="https://twitter.com/savinola">Laura Savino</a>,
@@ -310,11 +351,9 @@ if (initialExerciseName) {
             </p>
 
             <p>
-            And thank you for reading this! &#10084;
-            </p>
-
-            <p>
+            And thank you for reading this.
             If you liked this post, <a href="https://twitter.com/kasrak">follow me on Twitter!</a>
+            &#10084;
             </p>
         </section>
 
@@ -339,6 +378,8 @@ if (initialExerciseName) {
         </section>
     </div>
 
-    <p class="pubinfo">Published January 6, 2014.</p>
+    <p class="pubinfo">
+        Published January 6, 2014.
+    </p>
 </body>
 </html>
