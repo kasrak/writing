@@ -85,22 +85,23 @@ pre {
     clear: both;
 }
 
-.media-container.center {
+.media-container {
     text-align: center;
+}
+
+.media-container.center {
     width: 100%;
 }
 
-.media-container.left {
-    text-align: center;
+.media-container.left, .media-caption.left {
     float: left;
 }
 
-.media-container.right {
-    text-align: center;
+.media-container.right, .media-caption.right {
     float: right;
 }
 
-.media-container.half {
+.media-container.half, .media-caption.half {
     width: 50%;
 }
 
@@ -183,6 +184,7 @@ img.clickable:active {
 .video-player {
     display: inline-block;
     position: relative;
+    -webkit-user-select: none;
 }
 
 .video-player .pause-button {

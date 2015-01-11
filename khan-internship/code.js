@@ -15,11 +15,12 @@ function VideoPlayer(container) {
     this.userPaused = false;
     this.isPlaying = false;
     this.container = container;
-    this.videoElements = container.getElementsByTagName("video");
+    this.videoElement = container.getElementsByTagName("video")[0];
     this.playButton = container.getElementsByClassName("play-button")[0];
     this.pauseButton = container.getElementsByClassName("pause-button")[0];
 
     this.playButton.onclick = function() {
+        self.userPaused = false;
         self.play();
     };
 
@@ -27,30 +28,30 @@ function VideoPlayer(container) {
         self.userPaused = true;
         self.pause();
     };
+
+    this.videoElement.addEventListener("play", function() {
+        this.isPlaying = true;
+        this.container.classList.add(VideoPlayer.PlayingClass);
+    }.bind(this));
+
+    this.videoElement.addEventListener("pause", function() {
+        this.isPlaying = false;
+        this.container.classList.remove(VideoPlayer.PlayingClass);
+    }.bind(this));
 }
 
 VideoPlayer.PlayingClass = "playing";
 
 VideoPlayer.prototype.play = function() {
-    if (this.isPlaying) {
-        return;
+    if (!this.isPlaying) {
+        this.videoElement.play();
     }
-    this.isPlaying = true;
-    this.container.classList.add(VideoPlayer.PlayingClass);
-    forEach(this.videoElements, function(video) {
-        video.play();
-    });
 };
 
 VideoPlayer.prototype.pause = function() {
-    if (!this.isPlaying) {
-        return;
+    if (this.isPlaying) {
+        this.videoElement.pause();
     }
-    this.isPlaying = false;
-    this.container.classList.remove(VideoPlayer.PlayingClass);
-    forEach(this.videoElements, function(video) {
-        video.pause();
-    });
 };
 
 VideoPlayer.prototype.autoPlay = function() {
@@ -156,6 +157,11 @@ window.addEventListener("scroll", function() {
 
 window.addEventListener("load", function() {
     applyToElementsWithClassName("video-player", setUpVideoPlayer);
+    applyToElementsWithClassName("tap-to-play",  function(el) {
+        el.addEventListener("click", function() {
+            el.play();
+        });
+    });
 });
 
 })();
