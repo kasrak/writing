@@ -182,21 +182,38 @@
             </p>
 
             <p>
-            Mark all interactive DOM elements with special class. Use elementFromPoint() to
-            see if element or parent have the class.
+            So we  marked all the interactive DOM elements with a special class,
+            and added an endpoint to the Javascript API that tells the caller
+            if there is an interactive element at the given (x, y) coordinate
+            on the page.
             </p>
 
             <p>
-            When a touch starts, scratchpad asks if there is an interactive element at
-            the touch coordinates. But it can't block--this would drop the first few
-            strokes (pretty high overhead of making a call into JS land). Particularly
-            annoying for short strokes, like decimal points. So we queue up the touch
-            points, but only start drawing when we receive response from webview.
+            From the native side, when a touch begins on the scratchpad canvas,
+            we call into the Javascript API to see if the touch began on an
+            interactive element. At first, I did a simple synchronous call
+            with <code>stringByEvaluatingJavaScriptFromString</code>, but
+            this didn't feel very good, especially on older iPads. The blocking
+            call would drop the first few points of the touch, which was
+            particularly annoying for short strokes, like decimal points.
             </p>
 
             <p>
-            Shoutout to <a href="https://twitter.com/andy_matuschak">Andy</a> for improving inking,
-            <a href="https://twitter.com/drance">Matt</a> for helping with two-finger scrolling.
+            So we ended up making an async call into Javascript and queueing up
+            the touch points without rendering them. Then, depending on the
+            response, we either render the queued points or throw them out
+            and let the webview handle the touch.
+            </p>
+
+            <p>
+            As a nice side-effect, this async API is forward compatible with <code>WKWebKit</code> (more on that in a bit).
+            </p>
+
+            <p>
+            There were a few other interesting problems to solve with the scratchpad that I might
+            write about later. Big thanks to <a href="https://twitter.com/andy_matuschak">Andy</a> for improving inking
+            and a beautiful refactor, and <a href="https://twitter.com/drance">Matt</a> for helping with
+            two-finger scrolling.
             </p>
         </section>
 
