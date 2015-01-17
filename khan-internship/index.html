@@ -24,15 +24,13 @@
 
             <p>
             I spent the past summer working on the iOS team at <a href="https://www.khanacademy.org/">Khan Academy</a>.
-            This post is a recap of some of the things I worked on during my
-            internship.
             </p>
 
             <p>
             Khan Academy is
             best known for their videos, but there are also hundreds of interactive
-            math exercises students can use to practice skills
-            ranging from counting to calculus. Here's what an exercise looks
+            math exercises that students can use to practice skills
+            ranging from counting to calculus. This is what an exercise looks
             like on the website:
             </p>
 
@@ -41,8 +39,9 @@
             </div>
 
             <p>
-            For the past few months, the mobile team has been working to bring
-            these exercises to the iPad app and I got to help!
+            For the past few months, the mobile team has been working hard to bring
+            these exercises to the iPad app. Here are some of the parts I helped
+            build...
             </p>
         </section>
 
@@ -132,8 +131,6 @@
                     <div class="pause-button" style="background-position-y: 200px"></div>
             </div>
 
-            <p>I tried implementing all of the animations between the different states with <a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIDynamicAnimator_Class/index.html#//apple_ref/occ/cl/UIDynamicAnimator">UIDynamics</a>, but ended up switching to <a href="https://github.com/facebook/pop">POP</a> because UIDynamics doesn't provide an easy way to tell when animations have quiesced. As a bonus, POP made it pretty easy to have the animations be <a href="http://youtu.be/OiY1cheLpmI?t=43m35s">interruptible</a>.</p>
-
             <p>Plot twist! Most of this didn't make it into the app. When we tested with students, it wasn't clear that the fancy interactions were helpful. So we ended up shipping a simpler implementation without docking.</p>
 
         </section>
@@ -142,7 +139,7 @@
             <h2>Scratchpad</h2>
 
             <p>My next project was to make a native version of the exercise scratchpad. A lot of students use the scratchpad on the website to do rough work, even though writing with
-            a mouse can be painful, so we knew it was a valuable feature that could provide a far better experience on a touch device. This ended up being my biggest project.</p>
+            a mouse can be painful, so we knew it was a valuable feature, and that we could provide a far better experience on a touch device. This ended up being my biggest project.</p>
 
             <img src="http://dcv5tqec9187e.cloudfront.net/khan-internship/scratchpad-view-sandwich.png" width="182" height="160" class="scratchpad-view-sandwich">
 
@@ -169,7 +166,7 @@
             </div>
 
             <p>
-            So the main problem is hit testing: when the scratchpad a touch starts,
+            So the main problem was hit testing: when a touch starts,
             should we start drawing on the scratchpad or let the webview handle the touch?
             </p>
 
@@ -182,7 +179,7 @@
             </p>
 
             <p>
-            So we  marked all the interactive DOM elements with a special class,
+            So we marked all the interactive DOM elements with a special class,
             and added an endpoint to the Javascript API that tells the caller
             if there is an interactive element at the given (x, y) coordinate
             on the page.
@@ -190,19 +187,19 @@
 
             <p>
             From the native side, when a touch begins on the scratchpad canvas,
-            we call into the Javascript API to see if the touch began on an
+            the app calls the Javascript API to see if the touch began on an
             interactive element. At first, I did a simple synchronous call
-            with <code>stringByEvaluatingJavaScriptFromString</code>, but
+            with <code>stringByEvaluatingJavaScriptFromString:</code>, but
             this didn't feel very good, especially on older iPads. The blocking
             call would drop the first few points of the touch, which was
             particularly annoying for short strokes, like decimal points.
             </p>
 
             <p>
-            So we ended up making an async call into Javascript and queueing up
+            So I ended up making an async call into Javascript and queueing up
             the touch points without rendering them. Then, depending on the
-            response, we either render the queued points or throw them out
-            and let the webview handle the touch.
+            response, the app either renders the queued points or throws them out
+            and lets the webview handle the touch.
             </p>
 
             <p>
@@ -220,7 +217,7 @@
         <section>
             <h2>Other things&hellip;</h2>
 
-            <p>I got to work on a bunch of other things as well.
+            <p>I got to work on a bunch of smaller things as well.
             Here are some of them.</p>
 
             <div class="media-container center">
@@ -233,8 +230,9 @@
                                type="video/mp4">
                 </video>
                 <div class="media-caption" style="width: 400px">
-                    A bouncy animation I made to show the student's progress
-                    in an exercise. <strong>The shipped version has confetti, so go
+                    I had a lot fun working on animations in the app. This is a bouncy animation
+                    I made to show the student's progress in an exercise.
+                    <strong>The shipped version has confetti, so go
                     download the app to experience the full glory.</strong>
                     Thanks to fellow intern
                     <a href="http://www.elizabethylin.com/">Elizabeth Lin</a>
@@ -262,8 +260,13 @@
             <p>
             We built a visual editor that emits <a href="http://framerjs.com/">framer.js</a> code.
             Framer.js is a Javascript library that helps build interactive prototypes, but it can
-            take a lot of fiddly code to get things where you want them. We tried to let the user
-            set the scene visually, and only write code to describe the interactions.
+            take a lot of fiddly code to get things where you want them.
+            </p>
+
+            <p>
+            Our editor lets you create and place elements visually to set the scene, and
+            only write code to describe the interactions. This hybrid approach saves a lot of
+            boilerplate code.
             </p>
 
             <h3>UIWebView &rarr; WKWebView</h3>
@@ -283,7 +286,7 @@
             </p>
 
             <p>
-            But when I actually ran the app on an iOS 8 device, nothing loaded. Womp-womp.
+            But when I actually ran the app on an iOS 8 device, nothing loaded.
             That's because <code>WKWebView</code> can't load
             files directly from the local filesystem (this is probably <a href="https://bugs.webkit.org/show_bug.cgi?id=137153">going to be fixed</a>).
             Just for fun, I hacked up a version of the app with a local webserver to
@@ -342,7 +345,9 @@ if (initialExerciseName) {
             </div>
 
             <p>
-            A+ internship, would do again. Seriously, I had a blast! Thanks to everyone at Khan Academy, especially the iOS team for teaching me a ton:
+            I got to work on really fun problems with really great people,
+            which are the two secret ingredients for a great internship.
+            Thanks to everyone at Khan Academy, especially the iOS team for teaching me a ton:
             <a href="https://twitter.com/omgitsmgp">Mike Parker</a>,
             <a href="https://twitter.com/andy_matuschak">Andy Matuschak</a>,
             <a href="https://twitter.com/savinola">Laura Savino</a>,
@@ -379,6 +384,7 @@ if (initialExerciseName) {
     </div>
 
     <p class="pubinfo">
+        Thanks to <a href="http://leila.cc/">Leila</a> and <a href="http://nickdirienzo.com/">Nick</a> for reading drafts of this post.<br>
         Published January 18, 2014.
     </p>
 
