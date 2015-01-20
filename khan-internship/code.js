@@ -55,7 +55,7 @@ VideoPlayer.prototype.pause = function() {
 };
 
 VideoPlayer.prototype.autoPlay = function() {
-    if (!this.userPaused) {
+    if (!this.userPaused && !navigator.userAgent.match(/iPhone/i) && !navigator.userAgent.match(/iPod/i)) {
         this.play();
     }
 };
